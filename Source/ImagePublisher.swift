@@ -9,16 +9,16 @@ import Combine
 public extension ImagePipeline {
     /// Returns a publisher which starts a new `ImageTask` when a subscriber is added.
     ///
-    /// - note: For more information, see `ImageTaskPublisher`.
-    func imageTaskPublisher(with url: URL) -> ImageTaskPublisher {
-        imageTaskPublisher(with: ImageRequest(url: url))
+    /// - note: For more information, see `ImagePublisher`.
+    func imagePublisher(with url: URL) -> ImagePublisher {
+        imagePublisher(with: ImageRequest(url: url))
     }
 
     /// Returns a publisher which starts a new `ImageTask` when a subscriber is added.
     ///
-    /// - note: For more information, see `ImageTaskPublisher`.
-    func imageTaskPublisher(with request: ImageRequest) -> ImageTaskPublisher {
-        ImageTaskPublisher(request: request, pipeline: self)
+    /// - note: For more information, see `ImagePublisher`.
+    func imagePublisher(with request: ImageRequest) -> ImagePublisher {
+        ImagePublisher(request: request, pipeline: self)
     }
 }
 
@@ -30,7 +30,7 @@ public extension ImagePipeline {
 /// - note: In case the pipeline has `isProgressiveDecodingEnabled` option enabled
 /// and the image being downloaded supports progressive decoding, the publisher
 /// might emit more than a single value.
-public struct ImageTaskPublisher: Publisher {
+public struct ImagePublisher: Publisher {
     public typealias Output = ImageResponse
     public typealias Failure = ImagePipeline.Error
 
@@ -43,7 +43,7 @@ public struct ImageTaskPublisher: Publisher {
     }
 
     public func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-        let subscription = ImageTaskSubscription()
+        let subscription = ImageSubscription()
         subscriber.receive(subscription: subscription)
 
         if let response = pipeline.cachedResponse(for: request) {
@@ -74,7 +74,7 @@ public struct ImageTaskPublisher: Publisher {
     }
 }
 
-private final class ImageTaskSubscription: Subscription {
+private final class ImageSubscription: Subscription {
     var task: ImageTask?
 
     func request(_ demand: Subscribers.Demand) {
