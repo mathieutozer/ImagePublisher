@@ -43,7 +43,7 @@ You can implement this using `append` operator. This operator results in a seria
 
 ```swift
 let lowResImage = pipeline.imagePublisher(with: lowResUrl).orEmpty
-let highResImage = pipeline.imagePublisher(with: lowResUrl).orEmpty
+let highResImage = pipeline.imagePublisher(with: highResUrl).orEmpty
 
 cancellable = lowResImage.append(highResImage)
     .sink(receiveCompletion: { _ in /* Ignore errors */ },
