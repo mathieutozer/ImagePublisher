@@ -14,7 +14,7 @@ let package = Package(
         .library(name: "ImagePublisher", targets: ["ImagePublisher"])
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Nuke.git", from: "8.0.0")
+        .package(url: "https://github.com/kean/Nuke.git", from: "9.0.0")
     ],
     targets: [
         .target(name: "ImagePublisher", dependencies: ["Nuke"], path: "Source")
