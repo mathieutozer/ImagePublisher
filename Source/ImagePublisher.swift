@@ -46,8 +46,8 @@ public struct ImagePublisher: Publisher {
         let subscription = ImageSubscription()
         subscriber.receive(subscription: subscription)
 
-        if let response = pipeline.cachedResponse(for: request) {
-            _ = subscriber.receive(response)
+        if let image = pipeline.cachedImage(for: request) {
+            _ = subscriber.receive(ImageResponse(container: image))
             subscriber.receive(completion: .finished)
             return
         }
