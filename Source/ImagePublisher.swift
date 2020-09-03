@@ -6,6 +6,7 @@ import Foundation
 import Nuke
 import Combine
 
+@available(iOS 13.0, *)
 public extension ImagePipeline {
     /// Returns a publisher which starts a new `ImageTask` when a subscriber is added.
     ///
@@ -30,6 +31,7 @@ public extension ImagePipeline {
 /// - note: In case the pipeline has `isProgressiveDecodingEnabled` option enabled
 /// and the image being downloaded supports progressive decoding, the publisher
 /// might emit more than a single value.
+@available(iOS 13.0, *)
 public struct ImagePublisher: Publisher {
     public typealias Output = ImageResponse
     public typealias Failure = ImagePipeline.Error
@@ -74,6 +76,7 @@ public struct ImagePublisher: Publisher {
     }
 }
 
+@available(iOS 13.0, *)
 private final class ImageSubscription: Subscription {
     var task: ImageTask?
 
